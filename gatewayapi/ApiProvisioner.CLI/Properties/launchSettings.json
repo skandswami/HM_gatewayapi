@@ -1,0 +1,19 @@
+﻿{
+  "profiles": {
+    "GatewayProvisioner.CLI": {
+      "commandName": "Project",
+      "environmentVariables": {
+        "DOTNET_ENVIRONMENT": "Development",
+        "APIPRODUCTSAPI_URL": "http://localhost:8001",
+        "TF_VAR_admin_consumer_key": "aBcKey!",
+        "TF_VAR_kong_admin_uri": "http://localhost:8001",
+        "TF_VAR_admin_group_name": "admin-group"
+      },
+      "dotnetRunMessages": true
+    },
+    "Docker": {
+      "commandName": "Docker"
+    }
+  },
+  "$schema": "https://json.schemastore.org/launchsettings.json"
+}
