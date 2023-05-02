@@ -36,3 +36,8 @@ In the Github repo the follows projects are present:
 
  Running the collection all together will run all the tests associated.
 
+ # ApiKeys
+
+ Api for the OpenWeatherMaps is not provided here. It is shared with the email informing about the case study. 
+ The Api key needs to be put in WeatherApi/properties/launchSettings.json
+
