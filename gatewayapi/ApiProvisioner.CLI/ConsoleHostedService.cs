@@ -69,23 +69,22 @@ namespace Gateway.ApiProvisioner.CLI
 
                 List<ApiProductSubmitModel> apis = new();
                 
-                apis.AddRange(serviceProvider.GetServices<IApiProductConfiguration>().Where(x => true).Select(x => x.GetSubmitModel()));
+                apis.AddRange(serviceProvider.GetServices<IApiProductConfiguration>().Select(x => x.GetSubmitModel()));
 
                 foreach (ApiProductSubmitModel a in apis)
                 {
-                    using Activity? apiactivity = new ActivitySource($"Provisioning:{a.ProviderName}-{a.ProviderApiName}").StartActivity();
                     string apiProductName = $"{a.ProviderName!.ToLower()}-{a.ProviderApiName!.ToLower()}";
 
                     try
                     {
-                        _logger.LogInformation("Provisioning ApiProduct '{sb_apiProduct}'", apiProductName);
+                        _logger.LogInformation("Provisioning ApiProduct '{apiProduct}'", apiProductName);
 
                         await CreateOrUpdateApiProductAsync(a, CancellationToken.None);
-                        _logger.LogInformation("ApiProduct '{sb_apiProduct}' provisioned", apiProductName);
+
+                        _logger.LogInformation("ApiProduct '{apiProduct}' provisioned", apiProductName);
                     }
                     catch (Exception e)
                     {
-                        //apiActivity?.SetStatus(ActivityStatusCode.Error, e.ToString());
                         _logger.LogInformation(e.ToString());
                     }
                 }

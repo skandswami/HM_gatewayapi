@@ -32,21 +32,11 @@
     <None Remove="Extensions\" />
     <None Remove="Properties\" />
     <None Remove="ApiProductConfigurations\" />
-    <None Remove="catfacts-mockapi\" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Extensions\" />
     <Folder Include="Properties\" />
     <Folder Include="ApiProductConfigurations\" />
-    <Folder Include="catfacts-mockapi\" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Update="catfacts-mockapi\0.0.9.json">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Update="catfacts-mockapi\1.0.0.json">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Adapters.KongGateway\Adapters.KongGateway.csproj" />

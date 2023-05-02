@@ -38,58 +38,6 @@ namespace Gateway.ApiProvisioner.CLI;
 
             public string? UpstreamRelativePath { get; set; }
 
-            public GatewayConfig? GatewayConfiguration { get; set; }
-
-            public SpecificationTransformation? SpecTransformation { get; set; }
-
-            public HealthEndpointConfig? HealthEndpoint { get; set; }
-
-            public class GatewayConfig
-            {
-                public RequestTransformationConfig? RequestTransformation { get; set; }
-
-                public class RequestTransformationConfig
-                {
-                    public Item? Add { get; set; }
-
-                    public Item? Append { get; set; }
-
-                    public Item? Replace { get; set; }
-
-                    public Item? Rename { get; set; }
-
-                    public Item? Remove { get; set; }
-
-                    public class Item
-                    {
-                        public List<string>? Headers { get; set; }
-
-                        public List<string>? Querystring { get; set; }
-
-                        public List<string>? Body { get; set; }
-
-                        public string? Uri { get; set; }
-                    }
-                }
-            }
-
-            public class SpecificationTransformation
-            {
-                public List<string>? PathsToKeep { get; set; }
-
-                public List<string>? Removes { get; set; }
-
-                public Dictionary<string, string>? PathReplaces { get; set; }
-            }
-
-            public class HealthEndpointConfig
-            {
-                public bool IsInvisibleForCustomer { get; set; }
-
-                public string? Method { get; set; }
-
-                public string? UpstreamRelativePath { get; set; }
-            }
         }
 
         public bool ForceProvisioning { get; set; }
@@ -104,32 +52,6 @@ namespace Gateway.ApiProvisioner.CLI;
             RuleFor(m => m.UpstreamHost).NotEmpty();
             RuleFor(m => m.UpstreamProtocol).NotEmpty();
             RuleFor(m => m.UpstreamPort).NotEmpty();
-
-            RuleForEach(m => m.PlanConfig).SetValidator(new ApiProductPlanValidator());
-            RuleForEach(m => m.ApiProductVersions).SetValidator(new OpenApiSpecValidator());
-
-            RuleFor(m => m.ApiProductVersions)
-                .Must(specs => specs.Count() == specs.Select(u => u.Version).Distinct().Count())
-                .WithMessage($"The {nameof(ApiProductSubmitModel.ApiProductVersion.Version)} must be unique in the list");
-        }
-
-        public class ApiProductPlanValidator : AbstractValidator<ApiProductSubmitModel.ApiProductPlan>
-        {
-            public ApiProductPlanValidator()
-            {
-                RuleFor(m => m.Name).NotEmpty();
-                RuleFor(m => m.CallsPerMonth).NotNull();
-                RuleFor(m => m.PricePerMonth).NotNull();
-                RuleFor(m => m.PricePerMonth).NotNull();
-            }
-        }
-
-        public class OpenApiSpecValidator : AbstractValidator<ApiProductSubmitModel.ApiProductVersion>
-        {
-            public OpenApiSpecValidator()
-            {
-                RuleFor(m => m.Spec).NotEmpty();
-            }
         }
     }
 
