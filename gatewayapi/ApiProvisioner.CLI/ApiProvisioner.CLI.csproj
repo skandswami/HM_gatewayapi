@@ -50,6 +50,5 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Adapters.KongGateway\Adapters.KongGateway.csproj" />
-    <ProjectReference Include="..\Domain\Domain.csproj" />
   </ItemGroup>
 </Project>

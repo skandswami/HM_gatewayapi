@@ -10,7 +10,6 @@ using ApiProvisioner.CLI.Extensions;
 using Refit;
 using Adapters.KongGateway;
 using Adapters.KongGateway.Models;
-using Domain;
 
 namespace Gateway.ApiProvisioner.CLI
 {
@@ -63,18 +62,14 @@ namespace Gateway.ApiProvisioner.CLI
 
                 _logger.LogInformation($"Provisioning apis on {apiProductsApiUrl}");
 
-               
-
                 IServiceCollection services = new ServiceCollection();
                 services.RegisterAllTypes<IApiProductConfiguration>(new[] { typeof(Program).Assembly });
 
                 ServiceProvider serviceProvider = services.BuildServiceProvider();
 
                 List<ApiProductSubmitModel> apis = new();
-
                 
                 apis.AddRange(serviceProvider.GetServices<IApiProductConfiguration>().Where(x => true).Select(x => x.GetSubmitModel()));
-
 
                 foreach (ApiProductSubmitModel a in apis)
                 {
@@ -144,27 +139,6 @@ namespace Gateway.ApiProvisioner.CLI
             {
                 _logger.LogError(ex.ToString());
             }
-
-            //if (string.IsNullOrWhiteSpace(service.Protocol))
-            //    throw new ApiProductInvalidOperationException($"{nameof(service.Protocol)} cannot be null");
-
-            //Plugin aclPlugin = new()
-            //{
-            //    Name = "acl",
-            //    Protocols = new List<string> { service.Protocol! },
-
-            //    Config = new
-            //    {
-            //        allow = new[] { GetServiceAclGroupName(apiProduct), _adminGroupName, _tryitoutGroupName },
-            //        hide_groups_header = true,
-            //    }
-            //};
-
-            //ResponseEnvelope<Plugin> currentServicePlugins = await _webApi.GetPluginsForServiceAsync(service.Name, cancellationToken);
-
-            // Plugin? currentAclPlugin = currentServicePlugins.Data.FirstOrDefault(x => x.Name != null && x.Name.ToLower() == aclPlugin.Name.ToLower());
-
-            // await apiProductsWebApi.CreateOrUpdatePluginsForServiceAsync(service.Name, currentAclPlugin?.Id ?? Guid.NewGuid().ToString(), aclPlugin, cancellationToken);
 
         }
 

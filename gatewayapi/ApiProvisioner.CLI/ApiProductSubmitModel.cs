@@ -22,7 +22,7 @@ namespace Gateway.ApiProvisioner.CLI;
 
         public List<string>? RouthPaths { get; set; }
 
-    public int UpstreamPort { get; set; }
+        public int UpstreamPort { get; set; }
 
         public IEnumerable<ApiProductPlan>? PlanConfig { get; set; }
 
